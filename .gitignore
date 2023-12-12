@@ -1,0 +1,12 @@
+# Ignore compiled binary files
+*.exe
+*.o
+*.out
+*.test
+
+# Ignore Go build artifacts and vendor directories
+_test
+/vendor/
+
+# Ignore environment-specific files
+.env

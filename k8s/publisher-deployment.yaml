@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publisher-deployment
+spec:
+  replicas: 3  # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: publisher
+  template:
+    metadata:
+      labels:
+        app: publisher
+    spec:
+      containers:
+      - name: publisher
+        image: publisher-image:latest
+        # This field is used to specify when Kubernetes should pull images from a registry
+        # For locally built images you don't need this field
+        # image: your-docker-registry/publisher-image:latest  # Replace with your image URL
+        # imagePullPolicy: Always
+        ports:
+        - containerPort: 8080  # The port your Publisher service listens on
