@@ -1,0 +1,8 @@
+POST http://localhost:8080/schedule-sms HTTP/1.1
+content-type: application/json
+
+{
+    "to": "+18777804236",
+    "message": "Message content",
+    "send_time": "2023-12-12T15:15:02Z"
+}
