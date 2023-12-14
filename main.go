@@ -7,6 +7,7 @@ import (
 	"sync"
 
 	"github.com/streadway/amqp"
+	"sms-publisher/config"
 )
 
 // Define a global variable to hold the RabbitMQ connection
@@ -14,8 +15,13 @@ var rabbitMQConn *amqp.Connection
 var rabbitMQConnMutex sync.Mutex
 
 func connectToRabbitMQ() (*amqp.Connection, error) {
-	// RabbitMQ connection URL
-	rabbitMQURL := "amqp://guest:guest@localhost:5672/"
+	// Retrieve RabbitMQ connection URL from environment variables for security
+	// rabbitMQURL := readEnv("RABBITMQ_URL")
+	rabbitMQURL := config.ReadEnv("RABBITMQ_URL")
+	if rabbitMQURL == "" {
+		log.Fatal("MONGODB_URI environment variable not set")
+	}
+	// rabbitMQURL := "amqp://guest:guest@localhost:5672/" // local rabbitmq url
 
 	// Establish a connection to RabbitMQ
 	conn, err := amqp.Dial(rabbitMQURL)

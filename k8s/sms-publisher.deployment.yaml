@@ -1,23 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: publisher-deployment
+  name: sms-publisher-deployment
 spec:
-  replicas: 3  # Adjust the number of replicas as needed
+  replicas: 1  # Adjust the number of replicas as needed
   selector:
     matchLabels:
-      app: publisher
+      app: sms-publisher
   template:
     metadata:
       labels:
-        app: publisher
+        app: sms-publisher
     spec:
       containers:
-      - name: publisher
-        image: publisher-image:latest
+      - name: sms-publisher
+        image: sms-publisher-image:latest
         # This field is used to specify when Kubernetes should pull images from a registry
         # For locally built images you don't need this field
         # image: your-docker-registry/publisher-image:latest  # Replace with your image URL
         # imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: RABBITMQ_URL
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secret
+                key: RABBITMQ_URL
         ports:
         - containerPort: 8080  # The port your Publisher service listens on
