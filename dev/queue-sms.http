@@ -1,8 +1,8 @@
-POST http://localhost:8080/schedule-sms HTTP/1.1
+POST http://localhost:8080/queue-sms HTTP/1.1
 content-type: application/json
 
 {
     "recipient": "+18777804236",
-    "content": "Scheduled sms content",
+    "content": "Queued sms content",
     "timeToSend": "2023-12-17T15:15:02Z"
 }
